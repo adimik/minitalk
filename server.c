@@ -6,7 +6,7 @@
 /*   By: didimitr <didimitr@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:58:33 by didimitr          #+#    #+#             */
-/*   Updated: 2025/01/16 17:08:59 by didimitr         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:10:58 by didimitr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,26 @@ void	assembler(int sig)
 	}
 }
 
-void	handler0(void)
+void	itoa(int pid)
 {
-	write(1, "0", 1);
-}
-void	handler1(void)
-{
-	write(1, "1", 1);
+	int	i;
+
+	if (pid > 9)
+		itoa(pid / 10);
+	i = pid % 10 + '0';
+	write(1, &i, 1);
 }
 
 int	main(void)
 {
-	int i;
+	int	i;
+
 	signal(SIGUSR1, &assembler);
 	signal(SIGUSR2, &assembler);
-
 	i = getpid();
-	printf("PID:%d \n", i);
+	write(1, "PID:", 4);
+	itoa(i);
+	write(1, "\n", 1);
 	while (1)
 		pause();
 	return (1);

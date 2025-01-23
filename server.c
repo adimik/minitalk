@@ -6,12 +6,11 @@
 /*   By: didimitr <didimitr@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:58:33 by didimitr          #+#    #+#             */
-/*   Updated: 2025/01/21 17:10:58 by didimitr         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:53:50 by didimitr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <stdio.h>
 #include <unistd.h>
 
 void	assembler(int sig)
@@ -23,6 +22,10 @@ void	assembler(int sig)
 		c |= 1 << i++;
 	else
 		i++;
+	if (i == 8 && c == 0)
+	{
+		write(1, "\n", 1);
+	}
 	if (i == 8)
 	{
 		write(1, &c, 1);

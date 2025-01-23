@@ -10,8 +10,11 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(NAME)
 
-re: clean all
+fclean:
+	rm -f $(NAME) 
 
-.PHONY: all clean re
+re: 
+	fclean all
+
+.PHONY: all clean re fclean

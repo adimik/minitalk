@@ -6,12 +6,11 @@
 /*   By: didimitr <didimitr@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:18:03 by didimitr          #+#    #+#             */
-/*   Updated: 2025/01/21 16:38:30 by didimitr         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:13:27 by didimitr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -48,6 +47,8 @@ int	ft_atoi(char *s)
 	i = 0;
 	while (*s != '\0')
 	{
+		if (*s < 0 || (*s < '0' || *s > '9'))
+			return (i = -1);
 		i = i * 10 + (*s - 48);
 		s++;
 	}
@@ -59,8 +60,10 @@ int	main(int argc, char *argv[])
 	int	i;
 
 	if (argc != 3)
-		return (printf("Incorrect Input"));
+		return (write(1, "Incorrect Input", 15));
 	i = ft_atoi(argv[1]);
+	if (i < 0)
+		return (write(1, "Invalid PID", 11));
 	msgsend(i, argv[2]);
 	return (0);
 }
